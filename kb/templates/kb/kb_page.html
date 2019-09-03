@@ -15,7 +15,8 @@
     {% for item in page.documents.all %}
         <div style="float: left; margin: 10px">
             <h2>{{ item.title }}</h2>
-            <p>{{ item.caption }}</p>
+            {% comment %} <p>{{ item.caption }}</p> {% endcomment %}
+            <a href="{{ item.value.url }}">here the document {{ item }} a</a>
         </div>
     {% endfor %}
 

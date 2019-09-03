@@ -6,8 +6,8 @@ from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.documents.models import get_document_model
 from wagtail.documents.edit_handlers import DocumentChooserPanel
+# from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.search import index
 
 
@@ -38,21 +38,12 @@ class KbPage(Page):
         index.SearchField('body'),
     ]
 
-    # book_file = models.ForeignKey(
-    #     get_document_model(),
-    #     null=True,
-    #     blank=True,
-    #     on_delete=models.SET_NULL,
-    #     related_name='+'
-    # )
-
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('intro'),
         FieldPanel('body', classname="full"),
         InlinePanel('gallery_images', label="Gallery images"),
         InlinePanel('documents', label="Documents"),
-        # DocumentChooserPanel('book_file'),
     ]
 
 # image on each blog page from the gallery
@@ -74,11 +65,11 @@ class KbPageDocument(Orderable):
     doc = models.ForeignKey(
         'wagtaildocs.Document', on_delete=models.CASCADE, related_name='+'
     )
-    caption = models.CharField(blank=True, max_length=250)
+    # caption = models.CharField(blank=True, max_length=250)
 
     panels = [
         DocumentChooserPanel('doc'),
-        FieldPanel('caption'),
+        # FieldPanel('caption'),
     ]
 
     
