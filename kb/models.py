@@ -65,11 +65,11 @@ class KbPageDocument(Orderable):
     doc = models.ForeignKey(
         'wagtaildocs.Document', on_delete=models.CASCADE, related_name='+'
     )
-    # caption = models.CharField(blank=True, max_length=250)
+    caption = models.CharField(blank=True, max_length=250)
 
     panels = [
         DocumentChooserPanel('doc'),
-        # FieldPanel('caption'),
+        FieldPanel('caption'),
     ]
 
     
