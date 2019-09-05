@@ -1,0 +1,5 @@
+Dockerfile
+docker-compose.yml
+Procfile
+# if we are running locally to test
+#Vagrantfile
