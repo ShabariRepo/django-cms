@@ -5,28 +5,39 @@
 {% block body_class %}template-kbpage{% endblock %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date }}</p>
-
-    <div class="intro">{{ page.intro }}</div>
-
-    {{ page.body|richtext }}
-
-    {% for item in page.gallery_images.all %}
-        <div style="float: left; margin: 10px">
-            {% image item.image fill-320x240 %}
-            <p>{{ item.caption }}</p>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h1 class="display-4">{{ page.title }}</h1>
+                    <div class="lead">{{ page.intro }}</div>
+                    <div class="lead">{{ page.date }}</div>
+                </div>
+            </div>
         </div>
-    {% endfor %}
+    </div>
 
-    {% for item in page.documents.all %}
-        <div style="float: left; margin: 10px">
-            <h2>{{ item.title }}</h2>
-            <p>{{ item.caption }}</p>
-            <a href="{{ item.doc.url }}">{{ item.doc.title }}</a>
-        </div>
-    {% endfor %}
-    
-    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+    <div class="container">
+        {% for block in page.content %}
+            {% include_block block %}
+        {% endfor %}
 
+
+        {% for item in page.gallery_images.all %}
+            <div style="float: left; margin: 10px">
+                {% image item.image fill-320x240 %}
+                <p>{{ item.caption }}</p>
+            </div>
+        {% endfor %}
+
+        {% for item in page.documents.all %}
+            <div style="float: left; margin: 10px">
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.caption }}</p>
+                <a href="{{ item.doc.url }}">{{ item.doc.title }}</a>
+            </div>
+        {% endfor %}
+        
+        <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+    </div>
 {% endblock %}

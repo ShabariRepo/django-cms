@@ -5,21 +5,26 @@
 {% block body_class %}template-kbindexpage{% endblock %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
+    {% image self.banner_image width-1500 as img %}
+    <div class="jumbotron" style="background-image: url('{{ img.url }}'); background-size: cover; background-position: center center; color: #fff !important;">
+        <h1 class="display-4">{{ self.banner_title }}</h1>
+        <div class="lead">{{ self.banner_subtitle|richtext }}</div>
+        <hr class="my-4">
+        {% comment %} <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> {% endcomment %}
+    </div>
+    <div class="container">
+        {% for post in kbpages %}
+            {% with post=post.specific %}
+                <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
 
-    <div class="intro">{{ page.intro|richtext }}</div>
+                {% with post.main_image as main_image %}
+                    {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
+                {% endwith %}
 
-    {% for post in kbpages %}
-        {% with post=post.specific %}
-            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-
-            {% with post.main_image as main_image %}
-                {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
+                <p>{{ post.intro }}</p>
+                {{ post.body|richtext }}
             {% endwith %}
-
-            <p>{{ post.intro }}</p>
-            {{ post.body|richtext }}
-        {% endwith %}
-    {% endfor %}
+        {% endfor %}
+    </div>
 
 {% endblock %}
