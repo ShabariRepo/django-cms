@@ -49,6 +49,9 @@
                 </div>
             </div>
             <div>
+                <div class="d-flex justify-content-center">
+                    <h3>Documents loaded</h3>
+                </div>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -60,7 +63,7 @@
                     </thead>
                     <tbody>
                         {% for item in page.documents.all %}
-                            <tr class="table-active">
+                            <tr class="{% if forloop.first %} table-active{% endif %}">
                                 <th scope="row"><i class="far fa-file-word"></i></th>
                                 <td>{{ item.doc.title }}</td>
                                 <td>{{ item.doc.caption }}v1.2</td>
