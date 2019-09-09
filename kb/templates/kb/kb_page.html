@@ -18,16 +18,39 @@
     </div>
 
     <div class="container">
+        <div class="d-flex justify-content-center">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="max-height: 200px; width: 450px; ">
+                <div class="carousel-inner">
+                    {% for item in page.gallery_images.all %}
+                        <div class="carousel-item {% if forloop.first %} active{% endif %}">
+                            {% image item.image original as tmp_photo %}
+                            <img src="{{ page.get_site.root_url }}:8096{{ tmp_photo.url }}" class="d-block w-100" alt="...">
+
+                            <div class="carousel-caption d-none d-md-block">
+                                {% comment %} <h3>Stuff</h3> {% endcomment %}
+                                <h3>{{ item.caption }}</h3>
+                            </div>
+                        </div>
+                        {% comment %} <div style="float: left; margin: 10px">
+                            
+                            <p>{{ item.caption }}</p>
+                        </div> {% endcomment %}
+                    {% endfor %}
+
+
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
         {% for block in page.content %}
             {% include_block block %}
-        {% endfor %}
-
-
-        {% for item in page.gallery_images.all %}
-            <div style="float: left; margin: 10px">
-                {% image item.image fill-320x240 %}
-                <p>{{ item.caption }}</p>
-            </div>
         {% endfor %}
 
         {% for item in page.documents.all %}
