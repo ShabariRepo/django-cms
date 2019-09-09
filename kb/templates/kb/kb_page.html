@@ -18,7 +18,7 @@
     </div>
 
     <div class="container">
-        <div class="d-flex justify-content-center">
+        <div class="row d-flex justify-content-around">
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="max-height: 200px; width: 450px; ">
                 <div class="carousel-inner">
                     {% for item in page.gallery_images.all %}
@@ -48,19 +48,58 @@
                     </a>
                 </div>
             </div>
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Document Name</th>
+                        <th scope="col">Version</th>
+                        <th scope="col">Download</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in page.documents.all %}
+                            <tr class="table-active">
+                                <th scope="row"><i class="far fa-file-word"></i></th>
+                                <td>{{ item.doc.title }}</td>
+                                <td>{{ item.doc.caption }}v1.2</td>
+                                <td><a href="{{ item.doc.url }}">{{ item.doc.title }}</a></td>
+                            </tr>
+                        {% endfor %}
+                        {% comment %} <tr class="table-active">
+                        <th scope="row"></th>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">Default</th>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        </tr>
+                        <tr class="table-primary">
+                        <th scope="row">Primary</th>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        </tr>
+                        <tr class="table-success">
+                        <th scope="row">Success</th>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        </tr>
+                        <tr class="table-danger">
+                        <th scope="row">Danger</th>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        </tr>                         {% endcomment %}
+                    </tbody>
+                </table> 
+            </div>
         </div>
         {% for block in page.content %}
             {% include_block block %}
         {% endfor %}
 
-        {% for item in page.documents.all %}
-            <div style="float: left; margin: 10px">
-                <h2>{{ item.title }}</h2>
-                <p>{{ item.caption }}</p>
-                <a href="{{ item.doc.url }}">{{ item.doc.title }}</a>
-            </div>
-        {% endfor %}
-        
-        <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+        <p><a href="{{ page.get_parent.url }}">Return to KB Index</a></p>
     </div>
 {% endblock %}
