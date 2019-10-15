@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'search',
     'kb',
     'streams',
-
+    
+    'wagtail.api.v2',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_python3_ldap',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +66,98 @@ MIDDLEWARE = [
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
+
+
+ #####             ####
+### LDAP SETTINGS ###
+ #####             ####
+AUTHENTICATION_BACKENDS = [
+    "django_python3_ldap.auth.LDAPBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+# The URL of the LDAP server.
+# localhost is placeholder remove and replace with actual auth URL
+LDAP_AUTH_URL = "ldap://localhost:389"
+
+# Initiate TLS on connection.
+LDAP_AUTH_USE_TLS = False
+
+# The LDAP search base for looking up users.
+LDAP_AUTH_SEARCH_BASE = "ou=people,dc=example,dc=com"
+
+# The LDAP class that represents a user.
+LDAP_AUTH_OBJECT_CLASS = "user" #"inetOrgPerson"
+
+
+LDAP_AUTH_FORMAT_USERNAME = "django_python3_ldap.utils.format_username_active_directory_principal"
+LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = "centrilogic.com"
+
+# User model fields mapped to the LDAP
+# attributes that represent them.
+LDAP_AUTH_USER_FIELDS = {
+    "username": "sAMAccountName",
+    "first_name": "givenName",
+    "last_name": "sn",
+    "email": "mail",
+}
+
+# try this if the above settings doesnt work
+# below more catered around openLDAP instead though
+# LDAP_AUTH_USER_FIELDS = {
+#     "username": "uid",
+#     "first_name": "givenName",
+#     "last_name": "sn",
+#     "email": "mail",
+# }
+
+LDAP_AUTH_OBJECT_CLASS = "user"
+
+# A tuple of django model fields used to uniquely identify a user.
+LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
+
+# Path to a callable that takes a dict of {model_field_name: value},
+# returning a dict of clean model data.
+# Use this to customize how data loaded from LDAP is saved to the User model.
+LDAP_AUTH_CLEAN_USER_DATA = "django_python3_ldap.utils.clean_user_data"
+# Path to a callable that takes a user model and a dict of {ldap_field_name: [value]},
+# and saves any additional user relationships based on the LDAP data.
+# Use this to customize how data loaded from LDAP is saved to User model relations.
+# For customizing non-related User model fields, use LDAP_AUTH_CLEAN_USER_DATA.
+LDAP_AUTH_SYNC_USER_RELATIONS = "django_python3_ldap.utils.sync_user_relations"
+# Path to a callable that takes a dict of {ldap_field_name: value},
+# returning a list of [ldap_search_filter]. The search filters will then be AND'd
+# together when creating the final search filter.
+LDAP_AUTH_FORMAT_SEARCH_FILTERS = "django_python3_ldap.utils.format_search_filters"
+# The LDAP username and password of a user for querying the LDAP database for user
+# details. If None, then the authenticated user will be used for querying, and
+# the `ldap_sync_users` command will perform an anonymous query.
+LDAP_AUTH_CONNECTION_USERNAME = None
+LDAP_AUTH_CONNECTION_PASSWORD = None
+
+# Set connection/receive timeouts (in seconds) on the underlying `ldap3` library.
+LDAP_AUTH_CONNECT_TIMEOUT = None
+LDAP_AUTH_RECEIVE_TIMEOUT = None
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django_python3_ldap": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+    },
+}
+
+ #####             ####
+### END LDAP SETTINGS ###
+ #####             ####
 
 ROOT_URLCONF = 'samplecms.urls'
 
