@@ -1,3 +1,5 @@
 # for production instance with sql and redis
 #-r requirements/production.txt
+
+# below for base and test instances
 -r requirements/requirements.txt
