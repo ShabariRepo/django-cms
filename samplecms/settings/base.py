@@ -67,6 +67,7 @@ MIDDLEWARE = [
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
+SECRET_KEY = os.environ.get("SECRET_KEY", "adminTest")
 
  #####             ####
 ### LDAP SETTINGS ###
@@ -192,6 +193,17 @@ DATABASES = {
     }
 }
 
+# Use Elasticsearch as the search backend for extra performance and better search results
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.search.backends.elasticsearch2',#'wagtail.search.backends.db',
+        'URLS': ['http://localhost:9200'],
+        'INDEX': 'wagtail',
+        'TIMEOUT': 5,
+        'OPTIONS': {},
+        'INDEX_SETTINGS': {},
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
