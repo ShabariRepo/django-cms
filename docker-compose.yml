@@ -34,7 +34,7 @@ services:
       - redis:redis
       - elasticsearch:elasticsearch
     ports:
-      - "30080:8000"
+      - "8090:8090"
     depends_on:
       - db
       - redis
