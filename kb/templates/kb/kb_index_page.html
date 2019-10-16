@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/samplecms.css' %}">
+{% endblock %}
 
 {% load wagtailcore_tags wagtailimages_tags %}
 
@@ -13,18 +18,56 @@
         {% comment %} <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> {% endcomment %}
     </div>
     <div class="container">
-        {% for post in kbpages %}
-            {% with post=post.specific %}
-                <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-
-                {% with post.main_image as main_image %}
-                    {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
+        <div class="row">
+            {% comment %} <div class="col-xs-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/250x150" alt="Card image cap">
+                    <div class="card-block">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">This is a wider card with supporting text below as a natural
+                            lead-in to additional content. This card has even longer content than the first to
+                            show that equal height action.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+            {% for post in kbpages %}   
+            <div class="col-xs-12 col-md-6 col-lg-4 py-4">
+                <div class="card">
+                {% with post=post.specific %}
+                        {% comment %}  card-img-top {% endcomment %}
+                        {% with post.main_image as main_image %}
+                            {% if main_image %}
+                                {% image main_image fill-320x180 class="card-img-top" %}
+                            {% else %}
+                                <img class="card-img-top" src="http://placehold.it/320x180" alt="Card image cap">
+                            {% endif %}
+                        {% endwith %}
+                        <div class="card-block">
+                            <div class="card-body">
+                                <h4 class="card-title"><a href="{% pageurl post %}">{{ post.title }}</a></h4>
+                                <p class="card-text">
+                                    {{ post.intro }}
+                                    {{ post.body|richtext }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ post.date }}</small>
+                        </div>
+                    <!-- <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+    
+                    {% with post.main_image as main_image %}{% if main_image %}{% image main_image fill-160x100 %}{% else %}{% endif %}{% endwith %}
+    
+                    <p>{{ post.intro }}</p>
+                    {{ post.body|richtext }} -->
                 {% endwith %}
-
-                <p>{{ post.intro }}</p>
-                {{ post.body|richtext }}
-            {% endwith %}
-        {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
