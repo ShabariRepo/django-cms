@@ -67,7 +67,7 @@ MIDDLEWARE = [
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "adminTest")
+SECRET_KEY = os.environ.get("SECRET_KEY", 'adminTest')
 
  #####             ####
 ### LDAP SETTINGS ###
@@ -268,4 +268,4 @@ WAGTAIL_SITE_NAME = "samplecms"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://example.com'
+BASE_URL = 'http://centrilogickb.com'
