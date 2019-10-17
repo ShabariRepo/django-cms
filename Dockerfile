@@ -62,6 +62,9 @@ WORKDIR /code/
 
 RUN python3 manage.py migrate
 
+# create table for block inventory
+RUN python3 manage.py block_inventory
+
 RUN useradd wagtail
 RUN chown -R wagtail /code
 USER wagtail
