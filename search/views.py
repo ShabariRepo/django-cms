@@ -8,7 +8,7 @@ from kb.models import KbPage
 
 def search(request):
     search_query = request.GET.get('query', None)
-    # page = request.GET.get('page', 1)
+    page = request.GET.get('page', 1)
 
     # Search
     if search_query:
@@ -19,7 +19,7 @@ def search(request):
         # Record hit
         query.add_hit()
     else:
-        search_results = Page.objects.none()
+        search_results = KbPage.objects.none()
 
     # Pagination
     paginator = Paginator(search_results, 10)

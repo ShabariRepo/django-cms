@@ -195,16 +195,46 @@ DATABASES = {
 }
 
 # Use Elasticsearch as the search backend for extra performance and better search results
+# below is default for elastic
+# WAGTAILSEARCH_BACKENDS = {
+#     'default': {
+#         'BACKEND': 'wagtail.search.backends.elasticsearch2',#'wagtail.search.backends.db',
+#         'URLS': ['http://localhost:9200'],
+#         'INDEX': 'wagtail',
+#         'TIMEOUT': 5,
+#         'OPTIONS': {},
+#         'INDEX_SETTINGS': {},
+#     },
+# }
+
+# this is for default search via db type
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch2',#'wagtail.search.backends.db',
-        'URLS': ['http://localhost:9200'],
-        'INDEX': 'wagtail',
-        'TIMEOUT': 5,
-        'OPTIONS': {},
-        'INDEX_SETTINGS': {},
-    },
+        'BACKEND': 'wagtail.search.backends.db',
+    }
 }
+
+# Configure Elasticsearch, if present in os.environ
+ELASTICSEARCH_ENDPOINT = os.getenv('ELASTICSEARCH_ENDPOINT', '')
+
+# if ELASTICSEARCH_ENDPOINT:
+#     from elasticsearch import RequestsHttpConnection
+#     WAGTAILSEARCH_BACKENDS = {
+#         'default': {
+#             'BACKEND': 'wagtail.search.backends.elasticsearch2',
+#             'ATOMIC_REBUILD': True,
+#             'AUTO_UPDATE': True,
+#             'HOSTS': [{
+#                 'host': ELASTICSEARCH_ENDPOINT,
+#                 'port': 9200,#int(os.getenv('ELASTICSEARCH_PORT', '9200')),
+#                 # 'use_ssl': os.getenv('ELASTICSEARCH_USE_SSL', 'off') == 'off',
+#                 # 'verify_certs': os.getenv('ELASTICSEARCH_VERIFY_CERTS', 'off') == 'off',
+#             }],
+#             'OPTIONS': {
+#                 'connection_class': RequestsHttpConnection,
+#             },
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
