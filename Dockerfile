@@ -4,8 +4,8 @@ LABEL maintainer="sshenoy@centrilogic.com"
 
 # Set environment varibles
 # comment these out if needed per environment
-#ENV http_proxy http://10.228.12.41:8888
-#ENV https_proxy http://10.228.12.41:8888
+ENV http_proxy http://10.228.12.41:8888
+ENV https_proxy http://10.228.12.41:8888
 
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_ENV dev
@@ -70,8 +70,8 @@ RUN useradd wagtail
 RUN chown -R wagtail /code
 USER wagtail
 
-EXPOSE 8090
-CMD exec gunicorn samplecms.wsgi:application --bind 0.0.0.0:8090 --workers 3
+EXPOSE 8000
+CMD exec gunicorn samplecms.wsgi:application --bind 0.0.0.0:8000 --workers 3
 
 
 
