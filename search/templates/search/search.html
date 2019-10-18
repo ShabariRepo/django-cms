@@ -1,29 +1,50 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-searchresults{% endblock %}
 
 {% block title %}Search{% endblock %}
 
-{% block content %}
-    <h1>Search</h1>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/samplecms.css' %}">
+{% endblock %}
 
-    <form action="{% url 'search' %}" method="get">
+{% block content %}
+    <!-- <h1>Search</h1> -->
+
+    <!-- <form action="{% url 'search' %}" method="get">
         <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
         <input type="submit" value="Search" class="button">
-    </form>
+    </form> -->
+<div class="container">
 
     {% if search_results %}
-        <ul>
+    <header class="page-header">
+        <h1 class="page-title">{{ search_type }} Results for:  <span style=" background-color: rgba(0, 109, 91, 0.6);">{{ search_query }}</span></h1>
+    </header>
+        <!-- <ul> -->
+            <div class="row" style="background-color:  rgba(0, 109, 91, 0.2); border-radius: 2%;">
             {% for result in search_results %}
-                <li>
-                    <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-                    {% if result.search_description %}
-                        {{ result.search_description }}
-                    {% endif %}
-                </li>
+                <!-- <li> -->
+                <div class="col-xs-12 col-md-6 col-lg-4 py-4">
+                    <div class="card">                        
+                        {% if result.main_image %}
+                            {% image result.main_image fill-320x180 class="card-img-top" %}
+                        {% else %}
+                            <img class="card-img-top" src="http://placehold.it/320x180" alt="Card image cap">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ result.title }}</h5>
+                            <p class="card-text">{{ result.intro }}</p>
+                            <a href="{% pageurl result %}" class="btn btn-primary">Go To Kb</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <h4><a href="{% pageurl result %}">{{ result }}</a></h4> -->
+                <!-- </li> -->
             {% endfor %}
-        </ul>
+            </div>
+        <!-- </ul> -->
 
         {% if search_results.has_previous %}
             <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
@@ -32,7 +53,15 @@
         {% if search_results.has_next %}
             <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
         {% endif %}
-    {% elif search_query %}
+    {% elif search_query %}        
+        <header class="page-header">
+            <h1 class="page-title">Search Results for <span>: {{ search_query }}</span></h1>
+        </header>
         No results found
+    {% else %}
+        <header class="page-header">
+            <h1 class="page-title">Search using the input above...</h1>
+        </header>        
     {% endif %}
+</div>
 {% endblock %}

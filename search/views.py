@@ -14,6 +14,7 @@ def search(request):
     if search_query:
         # search_results = Page.objects.live().search(search_query)
         search_results = KbPage.objects.live().search(search_query)
+        # search_results = KbPage.filter(body__contains=search_query)
         query = Query.get(search_query)
 
         # Record hit
@@ -33,4 +34,5 @@ def search(request):
     return render(request, 'search/search.html', {
         'search_query': search_query,
         'search_results': search_results,
+        'search_type': 'Search',
     })

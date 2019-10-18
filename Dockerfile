@@ -64,6 +64,7 @@ RUN python3 manage.py migrate
 
 # create table for block inventory
 RUN python3 manage.py block_inventory
+RUN python3 manage.py update_index
 
 RUN useradd wagtail
 RUN chown -R wagtail /code

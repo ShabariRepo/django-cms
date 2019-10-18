@@ -37,3 +37,13 @@ class SimpleRichtextBlock(blocks.RichTextBlock):
         template = "streams/richtext_block.html"
         icon = "edit"
         label = "Simple RichText"
+
+# class CardBlock(blocks.StructBlock):
+#     """files from filemanager and nothing else."""
+
+#     title = blocks.CharBlock(required=True, help_text="Add your title")
+#     cards = blocks.ListBlock{
+#         blocks.StructBlock([
+#             ("image", Image)
+#         ])
+#     }

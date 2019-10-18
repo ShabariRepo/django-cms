@@ -59,6 +59,8 @@ class KbPage(Page):
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
         index.SearchField('content'),
+        index.SearchField('main_image'),
+        index.SearchField('title'),
     ]
 
     content_panels = Page.content_panels + [
