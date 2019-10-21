@@ -105,21 +105,21 @@ LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = "centrilogic.com"
 
 # User model fields mapped to the LDAP
 # attributes that represent them.
-# LDAP_AUTH_USER_FIELDS = {
-#     "username": "sAMAccountName",
-#     "first_name": "givenName",
-#     "last_name": "sn",
-#     "email": "mail",
-# }
-
-# try this if the above settings doesnt work
-# below more catered around openLDAP instead though
 LDAP_AUTH_USER_FIELDS = {
-    "username": "uid",
+    "username": "sAMAccountName",
     "first_name": "givenName",
     "last_name": "sn",
     "email": "mail",
 }
+
+# try this if the above settings doesnt work
+# below more catered around openLDAP instead though
+# LDAP_AUTH_USER_FIELDS = {
+#     "username": "uid",
+#     "first_name": "givenName",
+#     "last_name": "sn",
+#     "email": "mail",
+# }
 
 # A tuple of django model fields used to uniquely identify a user.
 LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
