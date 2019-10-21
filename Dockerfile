@@ -4,8 +4,8 @@ LABEL maintainer="sshenoy@centrilogic.com"
 
 # Set environment varibles
 # comment these out if needed per environment
-# ENV http_proxy http://10.228.12.41:8888
-# ENV https_proxy http://10.228.12.41:8888
+ENV http_proxy http://10.228.12.41:8888
+ENV https_proxy http://10.228.12.41:8888
 
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_ENV dev
@@ -79,6 +79,10 @@ RUN chown -R wagtail /code
 
 # RUN chmod 777 /code/docker-entrypoint.sh
 # ENTRYPOINT ["/code/docker-entrypoint.sh"]
+
+RUN mkdir -p /code/media/images && mkdir -p /code/media/documents
+# mark the destination for images as a volume
+VOLUME ["/code/media/images/"]
 
 USER wagtail
 EXPOSE 8000

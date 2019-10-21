@@ -82,7 +82,13 @@ AUTHENTICATION_BACKENDS = [
 
 # The URL of the LDAP server.
 # localhost is placeholder remove and replace with actual auth URL
-LDAP_AUTH_URL = "ldap://localhost:389"
+LDAP_AUTH_HOST = '10.231.19.10'
+LDAP_AUTH_PORT = 389
+LDAP_AUTH_URL = 'ldap://{host}:{port}'.format(
+    host=LDAP_AUTH_HOST,
+    port=LDAP_AUTH_PORT,
+)
+#"LDAP://mmisdc01.centrilogic.internal:389/DC=centrilogic,DC=internal"
 
 # Initiate TLS on connection.
 LDAP_AUTH_USE_TLS = False
@@ -99,23 +105,21 @@ LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = "centrilogic.com"
 
 # User model fields mapped to the LDAP
 # attributes that represent them.
-LDAP_AUTH_USER_FIELDS = {
-    "username": "sAMAccountName",
-    "first_name": "givenName",
-    "last_name": "sn",
-    "email": "mail",
-}
-
-# try this if the above settings doesnt work
-# below more catered around openLDAP instead though
 # LDAP_AUTH_USER_FIELDS = {
-#     "username": "uid",
+#     "username": "sAMAccountName",
 #     "first_name": "givenName",
 #     "last_name": "sn",
 #     "email": "mail",
 # }
 
-LDAP_AUTH_OBJECT_CLASS = "user"
+# try this if the above settings doesnt work
+# below more catered around openLDAP instead though
+LDAP_AUTH_USER_FIELDS = {
+    "username": "uid",
+    "first_name": "givenName",
+    "last_name": "sn",
+    "email": "mail",
+}
 
 # A tuple of django model fields used to uniquely identify a user.
 LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
