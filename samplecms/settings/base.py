@@ -189,11 +189,40 @@ WSGI_APPLICATION = 'samplecms.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# belos is for standard sqlite3 db
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# my sql implementation
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.getenv('MYSQL_DATABASE'),
+#         'USER': os.getenv('MYSQL_USER'),
+#         'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+#         'HOST': '127.0.0.1', #'db',
+#         'PORT': 3306,
+#     },
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'wagtail',
+        'HOST': 'mysql',
+        # 'PORT': '3306',
+        'USER': 'mysqladmin',
+        'PASSWORD': 'cladmin',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+            'init_command': 'SET innodb_strict_mode=1',
+            'charset': 'utf8mb4',
+        },
+    },
 }
 
 # Use Elasticsearch as the search backend for extra performance and better search results

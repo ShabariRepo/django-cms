@@ -1,15 +1,35 @@
-version: '2'
+version: '3.3'
 
 services:
-  db:
-    environment:
-      POSTGRES_DB: app_db
-      POSTGRES_USER: app_user
-      POSTGRES_PASSWORD: adminTest
+  mysql:
+    image: mysql:5.7
     restart: always
-    image: postgres:9.6
+    environment:
+      MYSQL_DATABASE: 'wagtail'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'mysqladmin'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'cladmin'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'cladmin'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
     expose:
-      - "5432"
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+  # db:
+    # environment:
+    #   POSTGRES_DB: app_db
+    #   POSTGRES_USER: app_user
+    #   POSTGRES_PASSWORD: adminTest
+    # restart: always
+    # image: postgres:9.6
+    # expose:
+    #   - "5432"
   redis:
     restart: always
     image: redis:3.0
@@ -21,6 +41,7 @@ services:
     expose:
       - "9200"
   app:
+    restart: 'always'
     environment:
       DJANGO_SECRET_KEY: adminTest
       DATABASE_URL: postgres://app_user:adminTest@db/app_db
@@ -29,13 +50,18 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    links:
-      - db:db
-      - redis:redis
-      - elasticsearch:elasticsearch
+    # links:
+    #   # - db:db
+    #   - mysql:mysql
+    #   - redis:redis
+    #   - elasticsearch:elasticsearch
     ports:
       - "8090:8000"
     depends_on:
-      - db
+      - mysql
+      # - db
       - redis
       - elasticsearch
+# Names our volume
+volumes:
+  my-db:
