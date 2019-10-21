@@ -71,8 +71,10 @@ RUN DATABASE_URL=mysql://none REDIS_URL=none python3 /code/manage.py collectstat
 # RUN python3 manage.py migrate
 
 # create table for block inventory
+# run these inside the container upon creation
 # RUN python3 manage.py block_inventory
 # RUN python3 manage.py update_index
+# RUN python3 manage.py createsuperuser 
 
 RUN useradd wagtail
 RUN chown -R wagtail /code
