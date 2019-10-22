@@ -72,7 +72,14 @@
                                 <th scope="row"><i class="far fa-file-word"></i></th>
                                 <td>{{ item.doc.title }}</td>
                                 <td>{{ item.doc.caption }}v1.2</td>
-                                <td><a href="{{ item.doc.url }}">{{ item.doc.title }}</a></td>
+                                <td><a href="
+                                    {{% if '/documents/1/' in item.doc.url %}
+                                        {{ item.doc }}
+                                    {% else %}
+                                        {{ item.doc.url }}
+                                    {% endif %}}">
+                                    {{ item.doc }}
+                                </a></td>
                             </tr>
                         {% endfor %}
                         {% comment %} <tr class="table-active">
