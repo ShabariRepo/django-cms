@@ -94,7 +94,7 @@ LDAP_AUTH_URL = 'ldap://{host}:{port}'.format(
 LDAP_AUTH_USE_TLS = False
 
 # The LDAP search base for looking up users.
-LDAP_AUTH_SEARCH_BASE = "ou=people,dc=example,dc=com"
+LDAP_AUTH_SEARCH_BASE = "dc=centrilogic,dc=internal"
 
 # The LDAP class that represents a user.
 LDAP_AUTH_OBJECT_CLASS = "user" #"inetOrgPerson"
