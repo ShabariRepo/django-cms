@@ -81,6 +81,7 @@ RUN chmod 777 /code/media/original_images && chmod 777 /code/media/images && chm
 
 RUN useradd wagtail
 RUN chown -R wagtail /code
+RUN chown -R wagtail /code/media
 
 # RUN chmod 777 /code/docker-entrypoint.sh
 # ENTRYPOINT ["/code/docker-entrypoint.sh"]
