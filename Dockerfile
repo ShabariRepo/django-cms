@@ -82,9 +82,14 @@ RUN chown -R wagtail /code
 # RUN chmod 777 /code/docker-entrypoint.sh
 # ENTRYPOINT ["/code/docker-entrypoint.sh"]
 
-RUN mkdir -p /code/media/images && mkdir -p /code/media/documents
+RUN mkdir -p /code/media/images
+RUN mkdir -p /code/media/documents
+RUN mkdir -p /code/media/original_images
+RUN chmod 777 /code/media/original_images && chmod 777 /code/media/images && chmod 777 /code/media/documents
+
 # mark the destination for images as a volume
 VOLUME ["/code/media/images/"]
+VOLUME ["/code/media/original_images"]
 
 USER wagtail
 EXPOSE 8000
