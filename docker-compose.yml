@@ -61,9 +61,9 @@ services:
       #  below are docker volumes if we want to do that instead
       # - cms-images:/code/media/images
       # - cms-docs:/code/media/documents
-      - /content/cms_data/:/code/media
-      - /content/cms_data/original_images:/code/media/original_images
-      - /content/cms_data/images:/code/media/images
+      # - /content/cms_data/:/code/media
+      - /content/cms_data/original_images:/code/media/original_images/
+      - /content/cms_data/images:/code/media/images/
     depends_on:
       - mysql
       # - db

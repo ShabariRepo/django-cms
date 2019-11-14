@@ -89,7 +89,7 @@ RUN chmod 777 /code/media/original_images && chmod 777 /code/media/images && chm
 
 # mark the destination for images as a volume
 VOLUME ["/code/media/images/"]
-VOLUME ["/code/media/original_images"]
+VOLUME ["/code/media/original_images/"]
 
 USER wagtail
 EXPOSE 8000
