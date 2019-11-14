@@ -14,7 +14,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'cladmin'
     ports:
       # <Port exposed> : < MySQL Port running inside container>
-      - '3306:3306'
+      - '3806:3306'
     expose:
       # Opens port 3306 on the container
       - '3306'
