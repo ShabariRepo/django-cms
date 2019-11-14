@@ -58,8 +58,10 @@ services:
     ports:
       - "8090:8000"
     volumes:
-      - cms-images:/code/media/images
-      - cms-docs:/code/media/documents
+      #  below are docker volumes if we want to do that instead
+      # - cms-images:/code/media/images
+      # - cms-docs:/code/media/documents
+      - /content/cms_data/:/code/media
     depends_on:
       - mysql
       # - db
@@ -68,7 +70,7 @@ services:
 # Names our volume
 volumes:
   my-db:
-  cms-images:
-    external: false
-  cms-docs:
-    external: false
+  # cms-images:
+  #   external: false
+  # cms-docs:
+  #   external: false
