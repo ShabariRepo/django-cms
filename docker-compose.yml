@@ -57,6 +57,9 @@ services:
     #   - elasticsearch:elasticsearch
     ports:
       - "8090:8000"
+    volumes:
+      - cms-images:/code/media/images
+      - cms-docs:/code/media/documents
     depends_on:
       - mysql
       # - db
@@ -65,3 +68,7 @@ services:
 # Names our volume
 volumes:
   my-db:
+  cms-images:
+    external: false
+  cms-docs:
+    external: false
