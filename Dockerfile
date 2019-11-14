@@ -78,17 +78,20 @@ RUN DATABASE_URL=mysql://none REDIS_URL=none python3 /code/manage.py collectstat
 
 RUN useradd wagtail
 RUN chown -R wagtail /code
-RUN chown -R wagtail /code/media
 
 # RUN chmod 777 /code/docker-entrypoint.sh
 # ENTRYPOINT ["/code/docker-entrypoint.sh"]
 
-RUN mkdir -p /code/media/images && mkdir -p /code/media/documents && mkdir -p /code/media/original_images
-RUN chmod 777 /code/media/original_images && chmod 777 /code/media/images && chmod 777 /code/media/documents
+RUN mkdir -p /code/media/images && mkdir -p /code/media/documents 
+#RUN mkdir -p /code/media/original_images
+#RUN chmod 777 /code/media/original_images 
+#RUN chmod 777 /code/media/images
+#RUN chmod 777 /code/media/documents
 
+#RUN chown -R wagtail /code/media
 # mark the destination for images as a volume
 VOLUME ["/code/media/images/"]
-VOLUME ["/code/media/original_images/"]
+#VOLUME ["/code/media/original_images/"]
 
 USER wagtail
 EXPOSE 8000
