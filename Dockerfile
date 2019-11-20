@@ -68,7 +68,8 @@ RUN DATABASE_URL=mysql://none REDIS_URL=none python3 /code/manage.py collectstat
 # Set the working directory to /code/
 # WORKDIR /code/
 
-# RUN python3 manage.py migrate
+RUN python manage.py makemigrations
+RUN python manage.py migrate
 
 # create table for block inventory
 # run these inside the container upon creation
