@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     'kb',
     'streams',
     'customer',
-    'operations',
     
     'wagtail.api.v2',
     'wagtail.contrib.forms',
