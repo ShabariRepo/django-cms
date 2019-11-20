@@ -14,6 +14,7 @@ from streams import blocks
 
 
 class KbIndexPage(Page):
+    max_count = 2
     banner_title = models.CharField(max_length=100, blank=False, null=True)
     banner_subtitle = RichTextField(features=["bold", "italic"])
     banner_image = models.ForeignKey(
