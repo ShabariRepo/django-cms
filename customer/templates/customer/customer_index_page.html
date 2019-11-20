@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/samplecms.css' %}">
+{% endblock %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-customerindexpage{% endblock %}
+
+{% block content %}
+    {% image self.banner_image width-1500 as img %}
+    <div class="jumbotron" style="background-image: url('{{ img.url }}'); background-size: cover; background-position: center center; color: #fff !important;">
+        <h1 class="display-4">{{ self.banner_title }}</h1>
+        <div class="lead">{{ self.banner_subtitle|richtext }}</div>
+        <hr class="my-4">
+    </div>
+    <div class="container">
+        <div class="row">
+            {% for post in customerpages %}   
+            <div class="col-xs-12 col-md-6 col-lg-4 py-4">
+                <div class="card">
+                {% with post=post.specific %}
+                        {% comment %}  card-img-top {% endcomment %}
+                        {% with post.main_image as main_image %}
+                            {% if main_image %}
+                                {% image main_image fill-320x180 class="card-img-top" %}
+                            {% else %}
+                                <img class="card-img-top" src="http://placehold.it/320x180" alt="Card image cap">
+                            {% endif %}
+                        {% endwith %}
+                        <div class="card-block">
+                            <div class="card-body">
+                                <h4 class="card-title"><a href="{% pageurl post %}">{{ post.customer }}</a></h4>
+                                <p class="card-text">
+                                    <!-- {{ post.customer }} -->
+                                    {{ post.body|richtext }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ post.date }}</small>
+                        </div>
+                    <!-- <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+    
+                    {% with post.main_image as main_image %}{% if main_image %}{% image main_image fill-160x100 %}{% else %}{% endif %}{% endwith %}
+    
+                    <p>{{ post.customer }}</p>
+                    {{ post.body|richtext }} -->
+                {% endwith %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

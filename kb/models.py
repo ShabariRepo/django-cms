@@ -41,7 +41,7 @@ class KbPage(Page):
     # stream field for multiple body elements
     content = StreamField(
         [
-            ("title_and_text", blocks.TitleAndTextBlock()),
+            # ("title_and_text", blocks.TitleAndTextBlock()),
             ("full_richtext", blocks.RichtextBlock()),
             ("simple_richtext", blocks.SimpleRichtextBlock()),
         ],

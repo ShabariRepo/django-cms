@@ -2,7 +2,7 @@
 
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block body_class %}template-kbpage{% endblock %}
+{% block body_class %}template-customerpage{% endblock %}
 
 {% block content %}
     <div class="jumbotron">
@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-sm-12 text-center">
                     <h1 class="display-4">{{ page.title }}</h1>
-                    <div class="lead">{{ page.intro }}</div>
+                    <div class="lead">{{ page.customer }}</div>
                     <div class="lead">{{ page.date }}</div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                     </a>
                 </div>
             </div>
-            <div>
+            <!-- <div>
                 <div class="d-flex justify-content-center">
                     <h3>Documents loaded</h3>
                 </div>
@@ -104,12 +104,48 @@
                         </tr>                         {% endcomment %}
                     </tbody>
                 </table> 
-            </div>
+            </div> -->
         </div>
         {% for block in page.content %}
             {% include_block block %}
         {% endfor %}
+        <div class="row">
+            {% for post in customerkbpages %}   
+            <div class="col-xs-12 col-md-6 col-lg-4 py-4">
+                <div class="card">
+                {% with post=post.specific %}
+                        {% comment %}  card-img-top {% endcomment %}
+                        {% with post.main_image as main_image %}
+                            {% if main_image %}
+                                {% image main_image fill-320x180 class="card-img-top" %}
+                            {% else %}
+                                <img class="card-img-top" src="http://placehold.it/320x180" alt="Card image cap">
+                            {% endif %}
+                        {% endwith %}
+                        <div class="card-block">
+                            <div class="card-body">
+                                <h4 class="card-title"><a href="{% pageurl post %}">{{ post.title }}</a></h4>
+                                <p class="card-text">
+                                    {{ post.intro }}
+                                    {{ post.body|richtext }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ post.date }}</small>
+                        </div>
+                    <!-- <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+    
+                    {% with post.main_image as main_image %}{% if main_image %}{% image main_image fill-160x100 %}{% else %}{% endif %}{% endwith %}
+    
+                    <p>{{ post.intro }}</p>
+                    {{ post.body|richtext }} -->
+                {% endwith %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
 
-        <p><a href="{{ page.get_parent.url }}">Return to KB Index</a></p>
+        <p><a href="{{ page.get_parent.url }}">Return to Customers List</a></p>
     </div>
 {% endblock %}
