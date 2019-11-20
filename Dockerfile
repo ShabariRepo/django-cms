@@ -68,8 +68,8 @@ RUN DATABASE_URL=mysql://none REDIS_URL=none python3 /code/manage.py collectstat
 # Set the working directory to /code/
 # WORKDIR /code/
 
-RUN python manage.py makemigrations
-RUN python manage.py migrate
+# RUN python manage.py makemigrations
+# RUN python manage.py migrate
 
 # create table for block inventory
 # run these inside the container upon creation
@@ -134,3 +134,4 @@ CMD exec gunicorn samplecms.wsgi:application --bind 0.0.0.0:8000 --workers 3
 
 # EXPOSE 8090
 # CMD exec gunicorn samplecms.wsgi:application --bind 0.0.0.0:8090 --workers 3
+
