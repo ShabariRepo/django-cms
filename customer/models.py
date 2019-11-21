@@ -35,7 +35,7 @@ class CustomerIndexPage(Page):
         return context
 
 class CustomerPage(Page):
-    date = models.DateField("Onboard Date")
+    date = models.DateField("Add Date")
     customer = models.CharField(max_length=250)
     # body = RichTextField(blank=True)
 
@@ -66,54 +66,8 @@ class CustomerPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
-        FieldPanel('customer'),
+        FieldPanel('customer', label="Customer/Topic"),
         InlinePanel('gallery_images', label="Gallery images"),
-        # InlinePanel('documents', label="Documents"),
-        # FieldPanel('body', classname="full"),
-        StreamFieldPanel("content"),
-    ]
-
-    def get_context(self, request):
-        # Update context to include only published posts, ordered by reverse-chron
-        context = super().get_context(request)
-        customerkbpages = self.get_children().live().order_by('-first_published_at')
-        context['customerkbpages'] = customerkbpages
-        return context
-
-class TopicPage(Page):
-    date = models.DateField("Date Added")
-    topic = models.CharField(max_length=250)
-    # body = RichTextField(blank=True)
-
-    # stream field for multiple body elements
-    content = StreamField(
-        [
-            # ("title_and_text", blocks.TitleAndTextBlock()),
-            ("full_richtext", blocks.RichtextBlock()),
-            ("simple_richtext", blocks.SimpleRichtextBlock()),
-        ],
-        null=True,
-        blank=True,
-    )
-
-    def main_image(self):
-        gallery_item = self.topic_gallery_images.first()
-        if gallery_item:
-            return gallery_item.image
-        else:
-            return None
-
-    search_fields = Page.search_fields + [
-        index.SearchField('topic'),
-        index.SearchField('content'),
-        index.SearchField('main_image'),
-        index.SearchField('title'),
-    ]
-
-    content_panels = Page.content_panels + [
-        FieldPanel('date'),
-        FieldPanel('topic'),
-        InlinePanel('topic_gallery_images', label="Gallery images"),
         # InlinePanel('documents', label="Documents"),
         # FieldPanel('body', classname="full"),
         StreamFieldPanel("content"),
@@ -129,18 +83,6 @@ class TopicPage(Page):
 # image on each blog page from the gallery
 class CustomerPageGalleryImage(Orderable):
     page = ParentalKey(CustomerPage, on_delete=models.CASCADE, related_name='gallery_images')
-    image = models.ForeignKey(
-        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
-    )
-    caption = models.CharField(blank=True, max_length=250)
-
-    panels = [
-        ImageChooserPanel('image'),
-        FieldPanel('caption'),
-    ]
-
-class TopicPageGalleryImage(Orderable):
-    page = ParentalKey(CustomerPage, on_delete=models.CASCADE, related_name='topic_gallery_images')
     image = models.ForeignKey(
         'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
     )
