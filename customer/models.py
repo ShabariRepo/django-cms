@@ -97,7 +97,7 @@ class TopicPage(Page):
     )
 
     def main_image(self):
-        gallery_item = self.gallery_images.first()
+        gallery_item = self.topic_gallery_images.first()
         if gallery_item:
             return gallery_item.image
         else:
@@ -113,7 +113,7 @@ class TopicPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('topic'),
-        InlinePanel('gallery_images', label="Gallery images"),
+        InlinePanel('topic_gallery_images', label="Gallery images"),
         # InlinePanel('documents', label="Documents"),
         # FieldPanel('body', classname="full"),
         StreamFieldPanel("content"),
@@ -129,6 +129,18 @@ class TopicPage(Page):
 # image on each blog page from the gallery
 class CustomerPageGalleryImage(Orderable):
     page = ParentalKey(CustomerPage, on_delete=models.CASCADE, related_name='gallery_images')
+    image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+    )
+    caption = models.CharField(blank=True, max_length=250)
+
+    panels = [
+        ImageChooserPanel('image'),
+        FieldPanel('caption'),
+    ]
+
+class TopicPageGalleryImage(Orderable):
+    page = ParentalKey(CustomerPage, on_delete=models.CASCADE, related_name='topic_gallery_images')
     image = models.ForeignKey(
         'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
     )
