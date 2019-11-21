@@ -36,7 +36,7 @@ class CustomerIndexPage(Page):
 
 class CustomerPage(Page):
     date = models.DateField("Add Date")
-    customer = models.CharField(max_length=250)
+    customer = models.CharField(max_length=250, "Customer/Topic")
     # body = RichTextField(blank=True)
 
     # stream field for multiple body elements
@@ -66,7 +66,7 @@ class CustomerPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
-        FieldPanel('customer', label="Customer/Topic"),
+        FieldPanel('customer'),
         InlinePanel('gallery_images', label="Gallery images"),
         # InlinePanel('documents', label="Documents"),
         # FieldPanel('body', classname="full"),
