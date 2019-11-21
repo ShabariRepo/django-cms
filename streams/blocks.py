@@ -1,6 +1,16 @@
 """Streamfields live in here."""
 
 from wagtail.core import blocks
+from wagtail.contrib.table_block.blocks import TableBlock
+
+class StreamTableBlock(blocks.SteamBlock):
+    """Table Block"""
+    table = TableBlock()
+
+    class Meta:  # noqa
+        template = "streams/table_block.html"
+        icon = "table"
+        label = "Table"
 
 
 class TitleAndTextBlock(blocks.StructBlock):
