@@ -36,7 +36,7 @@ class CustomerIndexPage(Page):
 
 class CustomerPage(Page):
     date = models.DateField("Add Date")
-    customer = models.CharField(max_length=250, "Customer/Topic")
+    customer = models.CharField(max_length=250, verbose_name="Customer/Topic")
     # body = RichTextField(blank=True)
 
     # stream field for multiple body elements
