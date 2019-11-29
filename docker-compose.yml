@@ -2,8 +2,11 @@ version: '3.3'
 
 services:
   mysql:
-    image: mysql:5.7
+    image: mysql:latest #mysql:5.7
     restart: always
+    # after this container spins up you need to alter the users created below with the following
+    # CREATE USER 'username'@'ip_address' IDENTIFIED WITH mysql_native_password BY 'password';  OR Alter
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_DATABASE: 'wagtail'
       # So you don't have to use root, but you can if you like
@@ -41,6 +44,14 @@ services:
     expose:
       - "9200"
   app:
+    # after container spins up you have to run the below
+    # python manage.py makemigrations
+    # # python manage.py migrate
+    # # create table for block inventory
+    # #  these inside the container upon creation
+    # #  python manage.py block_inventory
+    # #  python manage.py update_index
+    # #  python manage.py ldap_sync_users
     restart: 'always'
     environment:
       DJANGO_SECRET_KEY: adminTest
