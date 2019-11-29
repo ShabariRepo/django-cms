@@ -81,7 +81,7 @@ class CustomerPage(Page):
         return context
 
 class TopicPage(Page):
-    date = models.DateField("Add Date")
+    date = models.DateField("Date Added")
     topic = models.CharField(max_length=250, verbose_name="Topic Name")
     # body = RichTextField(blank=True)
 
