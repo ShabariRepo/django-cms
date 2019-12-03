@@ -12,7 +12,7 @@
 {% block content %}
     {% image self.banner_image width-1500 as img %}
     <div class="jumbotron" style="background-image: url('{{ img.url }}'); background-size: cover; background-position: center center; color: #fff !important;">
-        <div style="background-color: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 7px; box-shadow: 1px 4px 2px #000000;">
+        <div style="background-color: rgba(0, 0, 0, 0.6); padding: 15px; border-radius: 7px; box-shadow: 1px 4px 2px #000000;">
             <h1 class="display-4">{{ self.banner_title }}</h1>
             <div class="lead">{{ self.banner_subtitle|richtext }}</div>
             <hr class="my-4">
