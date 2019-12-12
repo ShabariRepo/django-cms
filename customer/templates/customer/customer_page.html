@@ -19,7 +19,7 @@
 
     <div class="container">
         <div class="row d-flex justify-content-around">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="max-height: 200px; width: 450px; ">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="max-height: 400px !important; width: 450px; ">
                 <ol class="carousel-indicators">
                     {% for item in page.gallery_images.all %}
                         <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %} active{% endif %}"></li>
