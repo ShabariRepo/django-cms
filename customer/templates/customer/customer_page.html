@@ -29,7 +29,7 @@
                     {% for item in page.gallery_images.all %}
                         <div class="carousel-item {% if forloop.first %} active{% endif %}">
                             {% image item.image original as tmp_photo %}
-                            <img src="{{ tmp_photo.url }}" class="d-block w-100" alt="...">
+                            <img src="{{ tmp_photo.url }}" class="d-block w-250 h-150" alt="...">
 
                             <div class="carousel-caption d-none d-md-block">
                                 {% comment %} <h3>Stuff</h3> {% endcomment %}
