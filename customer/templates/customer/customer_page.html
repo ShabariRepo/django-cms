@@ -106,9 +106,11 @@
                 </table> 
             </div> -->
         </div>
-        {% for block in page.content %}
-            {% include_block block %}
-        {% endfor %}
+        <div class="row">
+            {% for block in page.content %}
+                {% include_block block %}
+            {% endfor %}
+        </div>
         <div class="row">
             {% for post in customerkbpages %}   
             <div class="col-xs-12 col-md-6 col-lg-4 py-4">
