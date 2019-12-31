@@ -1,7 +1,26 @@
+{% load wagtailcore_tags %}
+
 <div class="container mb-sm-5 mt-sm-5">
     <div class="row">
         <div class="col-lg-12">
-            {{ self }}
+            {% comment %} {{ self }} {% endcomment %}
+            <table>
+                {% comment %} <caption>{{ value.caption_text }}</caption> {% endcomment %}
+                {% comment %} <thead>
+                {% for header_text in value.table_head.table_head_text %}
+                    <th>{{ header_text }}</th>
+                {% endfor %}
+                </thead> {% endcomment %}
+                <tbody>
+                {% for table_row in value.table_rows %}
+                    <tr>
+                        {% for table_row_text in table_row.table_row_text %}
+                            <td>{{ table_row_text }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
-</div> 
+</div>
