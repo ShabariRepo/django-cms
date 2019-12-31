@@ -3,14 +3,15 @@
 {% comment %} <div class="container mb-sm-5 mt-sm-5">
     <div class="row">
         <div class="col-lg-12"> {% endcomment %}
-            {{ self.StructValue }}
-            <table>
-                {% comment %} <caption>{{ value.caption_text }}</caption> {% endcomment %}
-                {% comment %} <thead>
+            {% comment %} {{ self }} {% endcomment %}
+            {{ child.value.bound_blocks.table }}
+            {% comment %} <table>
+                <caption>{{ value.caption_text }}</caption>
+                <thead>
                 {% for header_text in value.table_head.table_head_text %}
                     <th>{{ header_text }}</th>
                 {% endfor %}
-                </thead> {% endcomment %}
+                </thead>
                 <tbody>
                 {% for table_row in value.table_rows %}
                     <tr>
@@ -20,7 +21,7 @@
                     </tr>
                 {% endfor %}
                 </tbody>
-            </table>
+            </table> {% endcomment %}
         {% comment %} </div>
     </div>
 </div> {% endcomment %}
