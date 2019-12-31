@@ -4,7 +4,12 @@
     <div class="row">
         <div class="col-lg-12"> {% endcomment %}
             {% comment %} {{ self }} {% endcomment %}
-            {{ child.value }}
+            {% comment %} {{ child.value }} {% endcomment %}
+            {% for block in self %}
+    {% if block.block_type == 'table' %}
+        {% include_block block %}
+    {% endif %}
+{% endfor %}
             {% comment %} <table>
                 <caption>{{ value.caption_text }}</caption>
                 <thead>

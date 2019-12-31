@@ -8,7 +8,7 @@ class StreamTableBlock(blocks.StreamBlock):
     table = TableBlock()
     
     class Meta:  # noqa
-        # template = "streams/table_block.html"
+        template = "streams/table_block.html"
         icon = "table"
         label = "Table"
 
