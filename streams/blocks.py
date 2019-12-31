@@ -3,7 +3,7 @@
 from wagtail.core import blocks
 from wagtail.contrib.table_block.blocks import TableBlock
 
-class StreamTableBlock(blocks.StructBlock):
+class StreamTableBlock(blocks.StreamBlock):
     """Table Block"""
     table = TableBlock()
     
