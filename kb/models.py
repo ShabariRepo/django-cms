@@ -46,6 +46,7 @@ class KbPage(Page):
             ("full_richtext", blocks.RichtextBlock()),
             ("simple_richtext", blocks.SimpleRichtextBlock()),
             ("table_block", blocks.StreamTableBlock()),
+            ("table", blocks.TableBlock()),
         ],
         null=True,
         blank=True,

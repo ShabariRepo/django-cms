@@ -13,6 +13,22 @@ class StreamTableBlock(blocks.StructBlock):
         label = "Table"
 
 
+class TableHead(blocks.StructBlock):
+    table_head_text = blocks.ListBlock(blocks.CharBlock(max_length=120))
+
+class TableRow(blocks.StructBlock):
+    table_row_text = blocks.ListBlock(blocks.CharBlock(max_length=120))
+
+class TableBlock(blocks.StructBlock):
+    caption_text = blocks.CharBlock(max_length=120)
+    table_head = TableHead()
+    table_rows = blocks.ListBlock(TableRow())
+
+    class Meta:
+        template = 'streams/table.html'
+        icon = "table"
+        label = "Simple Table"
+
 class TitleAndTextBlock(blocks.StructBlock):
     """Title and text and nothing else."""
 
