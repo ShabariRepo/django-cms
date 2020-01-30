@@ -22,7 +22,7 @@
         {% comment %} <div class="row"> {% endcomment %}
         <h6 class="border-bottom border-gray pb-2 mb-0">Articles</h6>
         {% for post in customerpages %}
-        <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
+        <div onclick="location.href='{% pageurl post %}';" class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
             {% with post=post.specific %}                
                 {% with post.main_image as main_image %}
                     {% if main_image %}
