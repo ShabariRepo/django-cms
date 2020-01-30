@@ -19,7 +19,7 @@
         </div>        
     </div>
     <div class="container">
-        <div class="row">
+        {% comment %} <div class="row"> {% endcomment %}
             {% comment %} <div class="col-xs-12 col-md-6 col-lg-3">
                 <div class="card">
                     <img class="card-img-top" src="http://placehold.it/250x150" alt="Card image cap">
@@ -43,7 +43,7 @@
                         {% if main_image %}
                             {% image main_image fill-48x48 class="mr-3" %}
                         {% else %}
-                            <img class="mr-3" src="/docs/4.4/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
+                            <img class="mr-3" src="https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
                         {% endif %}
                     {% endwith %}
                     
@@ -85,6 +85,6 @@
             </div>
             {% endfor %} {% endcomment %}
         </div>
-    </div>
+    {% comment %} </div> {% endcomment %}
 
 {% endblock %}
