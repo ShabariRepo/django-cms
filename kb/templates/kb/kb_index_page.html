@@ -34,11 +34,33 @@
                     </div>
                 </div>
             </div> {% endcomment %}
-            {% for post in kbpages %}   
+
+            
+            {% for post in kbpages %}
+            <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+                {% with post=post.specific %}                
+                    {% with post.main_image as main_image %}
+                        {% if main_image %}
+                            {% image main_image fill-48x48 class="mr-3" %}
+                        {% else %}
+                            <img class="mr-3" src="/docs/4.4/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <div class="lh-100">
+                    <h6 class="mb-0 text-white lh-100"><a href="{% pageurl post %}">{{ post.title }}</a></h6>
+                    <small>{{ post.intro }}</small>
+                    <small>{{ post.date }}</small>
+                    </div>
+                {% endwith %}
+            </div>
+            {% endfor %}
+
+            {% comment %} cards alternative {% endcomment %}
+            {% comment %} {% for post in kbpages %}   
             <div class="col-xs-12 col-md-6 col-lg-4 py-4">
                 <div class="card">
                 {% with post=post.specific %}
-                        {% comment %}  card-img-top {% endcomment %}
                         {% with post.main_image as main_image %}
                             {% if main_image %}
                                 {% image main_image fill-320x180 class="card-img-top" %}
@@ -58,16 +80,10 @@
                         <div class="card-footer">
                             <small class="text-muted">{{ post.date }}</small>
                         </div>
-                    <!-- <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-    
-                    {% with post.main_image as main_image %}{% if main_image %}{% image main_image fill-160x100 %}{% else %}{% endif %}{% endwith %}
-    
-                    <p>{{ post.intro }}</p>
-                    {{ post.body|richtext }} -->
                 {% endwith %}
                 </div>
             </div>
-            {% endfor %}
+            {% endfor %} {% endcomment %}
         </div>
     </div>
 

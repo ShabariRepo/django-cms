@@ -52,9 +52,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="http://10.228.19.14:3000">Documents</a>
                 </li>
-                <!-- <li class="nav-item">
-                  <a class="nav-link" href="#">About</a>
-                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin">Admin</a>
+                </li>
               </ul>
               <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get">
                 <input class="form-control mr-sm-2" type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %} placeholder="Search">
