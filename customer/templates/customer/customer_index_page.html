@@ -11,7 +11,7 @@
 
 {% block content %}
     {% image self.banner_image width-1500 as img %}
-    <div class="jumbotron" style="background-image: url('{{ img.url }}'); background-size: cover; background-position: center center; color: #fff !important;">
+    <div class="jumbotron" style="background-image: url('{{ img.url }}'); max-height: 250px; background-size: cover; background-position: center center; color: #fff !important;">
         <div style="background-color: rgba(0, 0, 0, 0.6); padding: 15px; border-radius: 7px; box-shadow: 1px 4px 2px #000000;">
             <h1 class="display-4">{{ self.banner_title }}</h1>
             <div class="lead">{{ self.banner_subtitle|richtext }}</div>
@@ -19,42 +19,55 @@
         </div>
     </div>
     <div class="container">
-        <div class="row">
-            {% for post in customerpages %}   
-            <div class="col-xs-12 col-md-6 col-lg-4 py-4">
-                <div class="card">
-                {% with post=post.specific %}
-                        {% comment %}  card-img-top {% endcomment %}
-                        {% with post.main_image as main_image %}
-                            {% if main_image %}
-                                {% image main_image fill-320x180 class="card-img-top" %}
-                            {% else %}
-                                <img class="card-img-top" src="http://placehold.it/320x180" alt="Card image cap">
-                            {% endif %}
-                        {% endwith %}
-                        <div class="card-block">
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="{% pageurl post %}">{{ post.customer }}</a></h4>
-                                <p class="card-text">
-                                    <!-- {{ post.customer }} -->
-                                    {{ post.body|richtext }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">{{ post.date }}</small>
-                        </div>
-                    <!-- <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-    
-                    {% with post.main_image as main_image %}{% if main_image %}{% image main_image fill-160x100 %}{% else %}{% endif %}{% endwith %}
-    
-                    <p>{{ post.customer }}</p>
-                    {{ post.body|richtext }} -->
+        {% comment %} <div class="row"> {% endcomment %}
+        <h6 class="border-bottom border-gray pb-2 mb-0">Articles</h6>
+        {% for post in customerpages %}
+        <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
+            {% with post=post.specific %}                
+                {% with post.main_image as main_image %}
+                    {% if main_image %}
+                        {% image main_image fill-48x48 class="mr-3" %}
+                    {% else %}
+                        <img class="mr-3" src="https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
+                    {% endif %}
                 {% endwith %}
+                
+                <div class="lh-100">
+                    <h6 class="mb-0 lh-100"><a href="{% pageurl post %}">{{ post.customer }}</a></h6>
+                    <small>{{ post.body|richtext }}</small>
+                    <br />
+                    <small class="text-muted">{{ post.date }}</small>
                 </div>
-            </div>
-            {% endfor %}
+            {% endwith %}
         </div>
+        {% endfor %}
+        {% comment %} {% for post in customerpages %}   
+        <div class="col-xs-12 col-md-6 col-lg-4 py-4">
+            <div class="card">
+            {% with post=post.specific %}
+                    {% with post.main_image as main_image %}
+                        {% if main_image %}
+                            {% image main_image fill-320x180 class="card-img-top" %}
+                        {% else %}
+                            <img class="card-img-top" src="http://placehold.it/320x180" alt="Card image cap">
+                        {% endif %}
+                    {% endwith %}
+                    <div class="card-block">
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="{% pageurl post %}">{{ post.customer }}</a></h4>
+                            <p class="card-text">
+                                {{ post.body|richtext }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">{{ post.date }}</small>
+                    </div>
+            {% endwith %}
+            </div>
+        </div>
+        {% endfor %} {% endcomment %}
+        {% comment %} </div> {% endcomment %}
     </div>
 
 {% endblock %}
